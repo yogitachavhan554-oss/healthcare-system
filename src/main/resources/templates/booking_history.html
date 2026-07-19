@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="header-title" style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #333;">
+            My Booking History
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom p-4" style="border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: white;">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Service Name</th>
+                                    <th>Caregiver Name</th>
+                                    <th>Booking Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="b : ${bookings}">
+                                    <td th:text="${b.serviceName}"></td>
+                                    <td th:text="${b.caregiverName}"></td>
+                                    <td th:text="${b.bookingDate}"></td>
+                                    <td>
+                                        <span th:if="${b.status == 'Pending'}" class="badge bg-warning text-dark">Pending</span>
+                                        <span th:if="${b.status == 'Completed'}" class="badge bg-success">Completed</span>
+                                        <span th:if="${b.status == 'rated'}" class="badge bg-info">Rated</span>
+                                    </td>
+                                    <td>
+                                        <button th:if="${b.status == 'Completed'}" 
+                                                class="btn btn-sm btn-outline-warning" 
+                                                data-bs-toggle="modal" 
+                                                th:data-bs-target="'#ratingModal' + ${b.id}">
+                                            <i class="fa-solid fa-star"></i> Rate
+                                        </button>
+                                        
+                                        <span th:if="${b.status == 'Rated'}" class="text-muted">
+                                            <i class="fa-solid fa-check"></i> Rated
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(bookings)}">
+                                    <td colspan="5" class="text-center text-muted py-3">No booking history found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:each="b : ${bookings}" th:if="${b.status == 'Completed'}" 
+             class="modal fade" th:id="'ratingModal' + ${b.id}" tabindex="-1">
+            <div class="modal-dialog">
+                <form th:action="@{/submit-rating}" method="post" class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Rate Service</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="bookingId" th:value="${b.id}">
+                        <input type="hidden" name="caregiverId" th:value="${b.caregiverId}">
+                        
+                        <label class="form-label">Rating (1-5)</label>
+                        <input type="number" name="rating" min="1" max="5" class="form-control" required>
+                        
+                        <label class="form-label mt-3">Feedback</label>
+                        <textarea name="comments" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit Rating</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

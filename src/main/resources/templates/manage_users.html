@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <h3>Manage Patients</h3>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>MedicalCondition</th>
+                            <th>Age</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="patient : ${patientsList}">
+                            <td th:text="${patient.name}">Name</td>
+                            <td th:text="${patient.medicalCondition}">MedicalCondition</td>
+                            <td th:text="${patient.age}">Age</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

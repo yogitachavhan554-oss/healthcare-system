@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-custom p-4" style="border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h3 class="text-center mb-4 text-primary">Book a Healthcare Service</h3>
+                    
+                    <form th:action="@{/book}" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Select Service</label>
+                            <select class="form-control" name="serviceId" required>
+                                <option value="" disabled selected>--Choose a service--</option>
+                                <option th:each="s : ${services}" th:value="${s.id}" th:text="${s.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Select Caregiver</label>
+                            <select class="form-control" name="caregiverId" required>
+                                <option value="" disabled selected>--Choose a Caregiver--</option>
+                                <option th:each="c : ${caregivers}" th:value="${c.id}" th:text="${c.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Booking Date</label>
+                            <input type="date" class="form-control" name="bookingDate" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Confirm Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

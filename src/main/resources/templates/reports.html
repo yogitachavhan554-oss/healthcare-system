@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<body>
+<div th:fragment="content">
+    <h3>System Analytics Report</h3>
+    <div class="card mt-4 p-4">
+        <h5>Total Bookings this Month</h5>
+        <p class="display-6 text-primary" th:text="${totalBookings}">0</p>
+        
+        <hr>
+        
+        <h5>Most Popular Service</h5>
+        <p class="text-muted" th:text="${popularService}">None</p>
+    </div>
+</div>>
+</body>

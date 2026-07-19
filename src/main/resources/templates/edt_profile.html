@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-4" style="border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h3 class="mb-4 text-primary">Edit Your Profile</h3>
+                    
+                    <form th:action="@{/patient/update}" method="post" th:object="${patient}">
+                        
+                        <!-- Hidden fields -->
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="hidden" th:field="*{email}" />
+                        <input type="hidden" th:field="*{password}" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Age</label>
+                            <input type="number" th:field="*{age}" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email Id</label>
+                            <input type="email" th:value="*{email}" class="form-control" disabled> 
+                        </div>
+
+                        <!-- Mobile Number Field Added -->
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Medical Condition</label>
+                            <input type="text" th:field="*{medicalCondition}" class="form-control">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea th:field="*{address}" class="form-control" rows="3"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

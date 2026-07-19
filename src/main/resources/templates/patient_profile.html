@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <h3>Patient Information</h3>
+        <hr>
+        <div class="card card-custom mt-4 p-4" style="max-width: 500px;">
+            <div class="mb-3">
+                <strong>Name:</strong>
+                <p class="text-muted" th:text="${patient.name}">Name</p>
+            </div>
+            <div class="mb-3">
+                <strong>Age:</strong>
+                <p class="text-muted" th:text="${patient.age}">Age</p>
+            </div>
+            <div class="mb-3">
+                <strong>Email Id:</strong>
+                <p class="text-muted" th:text="${patient.email}">Email</p>
+            </div>
+            
+            <div class="mb-3">
+                <strong>Medical Condition:</strong>
+                <p class="text-muted" th:text="${patient.medicalCondition}">Condition</p>
+            </div>
+            <div class="mb-3">
+                <strong>Address:</strong>
+                <p class="text-muted" th:text="${patient.address}">Address</p>
+            </div>
+            <a th:href="@{'/patient/edit/' + ${patient.id}}" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+</body>
+</html>

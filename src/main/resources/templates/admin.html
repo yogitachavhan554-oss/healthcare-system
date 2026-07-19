@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::content})}">
+<body>
+    <div th:fragment="content">
+        <h2 class="mb-4">Admin Dashboard</h2>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3 bg-primary text-white">
+                    <h5>Total Patients</h5>
+                    <h3 th:text="${totalPatients}">0</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 bg-success text-white">
+                    <h5>Verified Caregivers</h5>
+                    <h3>15</h3> </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 bg-warning text-dark">
+                    <h5>Pending Complaints</h5>
+                    <h3>3</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h4>Quick Actions</h4>
+            <div class="list-group">
+                <a href="/admin/verify_caregivers" class="list-group-item list-group-item-action">Verify New Caregivers</a>
+                <a href="/admin/manage_users" class="list-group-item list-group-item-action">Manage Users & Patients</a>
+                <a href="/admin/reports" class="list-group-item list-group-item-action">View Analytics Report</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
